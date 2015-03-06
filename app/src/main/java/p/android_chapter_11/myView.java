@@ -1,15 +1,21 @@
 package p.android_chapter_11;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.StaticLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import java.io.InputStream;
 
 /**
  * Created by wangxm-wr on 2015/3/6 in Vanke.
@@ -26,6 +32,8 @@ public class myView extends View {
     public myView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
+    static int degree = 1;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -79,12 +87,29 @@ public class myView extends View {
 //        canvas.drawText("Yuan",120,550,paint2);
 //        canvas.drawText("Xing",120+paint2.measureText("Yuan")+10,550,paint2);
 
-//        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.net),100,100,paint2); //绘制位图
+//        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.net),100,100,paint2); //绘制位图1
 
-//        Drawable drawable=getResources().getDrawable(R.drawable.pic);      //绘制位图
+//        Drawable drawable=getResources().getDrawable(R.drawable.pic);      //绘制位图2
 //        drawable.setAlpha(100);
 //        drawable.setBounds(200,200,230,230);
 //        drawable.draw(canvas);
+
+//        InputStream inputStream=getResources().openRawResource(R.drawable.net); //绘制位图3
+//        BitmapFactory.Options bitmapFactoryOption=new BitmapFactory.Options();
+//        bitmapFactoryOption.inSampleSize=1;
+//        Bitmap bitmap=BitmapFactory.decodeStream(inputStream,null,bitmapFactoryOption);
+//        canvas.drawBitmap(bitmap,50,50,paint2);
+
+//        Matrix matrix=new Matrix();
+//        matrix.setRotate(20,20,20);
+//        canvas.setMatrix(matrix);
+
+        Log.i("dsfsdf", "111111111111111111111111111");
+        degree += 1;            //显示动画
+        canvas.rotate(degree, 310, 310);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pic), 300, 300, paint3);
+//        invalidate();
+//        Log.i("dsfsdf", "222222222222222222222");
 
     }
 }
