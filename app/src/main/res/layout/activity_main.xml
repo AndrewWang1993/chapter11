@@ -14,7 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <p.android_chapter_11.myView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--<p.android_chapter_11.myView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:id="@+id/myImageview" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="start/stop anim"
+        android:onClick="start"/>
+    <ImageView
+        android:id="@+id/small_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
 </LinearLayout>
