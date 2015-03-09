@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,12 +24,15 @@ import java.lang.reflect.Field;
 import java.security.MessageDigestSpi;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Animation.AnimationListener {
     View view;
     ImageView imageView;
     ImageView small_imageView;
     AnimationDrawable animationDrawable;
     Thread controlFrame;
+
+
+    Animation animation1, animation2;
 //    Handler handler = new Handler(new Handler.Callback() {
 //        @Override
 //        public boolean handleMessage(Message msg) {   //运动的view
@@ -96,8 +101,14 @@ public class MainActivity extends Activity {
 ////        setContentView(view);
         imageView = (ImageView) findViewById(R.id.myImageview);
         small_imageView = (ImageView) findViewById(R.id.small_image);
-        imageView.setBackgroundResource(R.anim.m_anim);
-        animationDrawable = (AnimationDrawable) imageView.getBackground();
+        animation1 = AnimationUtils.loadAnimation(this, R.anim.translate);
+        animation2 = AnimationUtils.loadAnimation(this, R.anim.alapt);
+        imageView.setImageDrawable(getResources().getDrawable(R.drawable.pic));
+        animation1.setAnimationListener(this);
+        animation2.setAnimationListener(this);
+//        imageView.setBackgroundResource(R.anim.m_anim);
+//        animationDrawable = (AnimationDrawable) imageView.getBackground();
+
     }
 
     @Override
@@ -162,8 +173,8 @@ public class MainActivity extends Activity {
                 Log.i("Thread Stop Exception", e.getMessage());
             }
             animationDrawable.stop();
-////            int number = animationDrawable.getNumberOfFrames();
-////            int duration = animationDrawable.getDuration(1);
+//            int number = animationDrawable.getNumberOfFrames();
+//            int duration = animationDrawable.getDuration(1);
 //            Drawable drawable = animationDrawable.getCurrent();
 //            int len = animationDrawable.getNumberOfFrames();
 //            long currentTime1=System.nanoTime();
@@ -178,6 +189,34 @@ public class MainActivity extends Activity {
 ////            small_imageView.setImageDrawable(drawable);
 ////            Toast.makeText(this, number + " " + duration, Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    public void startTween(View view) {
+        imageView.startAnimation(animation1);
+//        imageView.setAnimation(animation1);
+
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        if (animation.hashCode() == animation2.hashCode()) {
+            Toast.makeText(this, "start translat", Toast.LENGTH_SHORT).show();
+            imageView.startAnimation(animation1);
+        }else if(animation.hashCode()==animation1.hashCode()){
+            Toast.makeText(this, "start alapa", Toast.LENGTH_SHORT).show();
+            imageView.startAnimation(animation2);
+
+        }
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
 
     }
 }
