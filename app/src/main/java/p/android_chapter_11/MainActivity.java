@@ -2,6 +2,7 @@ package p.android_chapter_11;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Interpolator;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -57,6 +58,17 @@ public class MainActivity extends Activity implements Animation.AnimationListene
 //        }
 //    });
 
+    public class myInterpolation implements android.view.animation.Interpolator{  //自定义动画
+        @Override
+        public float getInterpolation(float input) {
+            if(input<0.5){
+                return input*input;
+            }else{
+                return 2-input*input;
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +118,8 @@ public class MainActivity extends Activity implements Animation.AnimationListene
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.pic));
         animation1.setAnimationListener(this);
         animation2.setAnimationListener(this);
+
+        animation1.setInterpolator(new myInterpolation());
 //        imageView.setBackgroundResource(R.anim.m_anim);
 //        animationDrawable = (AnimationDrawable) imageView.getBackground();
 
@@ -205,14 +219,14 @@ public class MainActivity extends Activity implements Animation.AnimationListene
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if (animation.hashCode() == animation2.hashCode()) {
+//        if (animation.hashCode() == animation2.hashCode()) {
             Toast.makeText(this, "start translat", Toast.LENGTH_SHORT).show();
             imageView.startAnimation(animation1);
-        }else if(animation.hashCode()==animation1.hashCode()){
-            Toast.makeText(this, "start alapa", Toast.LENGTH_SHORT).show();
-            imageView.startAnimation(animation2);
-
-        }
+//        }else if(animation.hashCode()==animation1.hashCode()){
+//            Toast.makeText(this, "start alapa", Toast.LENGTH_SHORT).show();
+//            imageView.startAnimation(animation2);
+//
+//        }
     }
 
     @Override
